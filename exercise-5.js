@@ -2,8 +2,9 @@
 db.pizzaOrders.aggregate([
   {
     $group: {
-      _id: { month: { $month: "$created_at" }, year: { $year: "$created_at" } },
+      _id: { month: "$created_at", year: "$created_at" },
       total_sale: { $sum: "$total_price" },
     },
   },
+  { $sort: { "_id.month": -1, "id.year": -1 } },
 ]);
